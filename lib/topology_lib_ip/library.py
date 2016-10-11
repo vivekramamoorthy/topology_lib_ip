@@ -258,7 +258,7 @@ def remove_ip(enode, portlbl, addr, shell=None):
     assert not response
 
 
-def add_route(enode, route, via, shell=None):
+def add_route(enode, route, via, shell=None, dev=None):
     """
     Add a new static route.
 
@@ -279,9 +279,18 @@ def add_route(enode, route, via, shell=None):
             (route != 'default' and ip_network(route).version == 6):
         version = '-6'
 
-    cmd = 'ip {version} route add {route} via {via}'.format(
-        version=version, route=route, via=via
-    )
+    if (dev and via):
+        cmd = 'ip {version} route add {route} via {via} dev {dev}'.format(
+            version=version, route=route, via=via, dev=dev
+        )
+    elif (dev):
+        cmd = 'ip {version} route add {route} dev {dev}'.format(
+            version=version, route=route, via=via, dev=dev
+        )
+    else:
+        cmd = 'ip {version} route add {route} via {via}'.format(
+            version=version, route=route, via=via
+        )
 
     response = enode(cmd, shell=shell)
     assert not response
