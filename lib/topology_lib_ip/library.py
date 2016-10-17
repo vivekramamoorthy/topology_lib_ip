@@ -276,12 +276,16 @@ def add_route(enode, route, via, shell=None, dev=None):
         via = ip_address(via)
 
     version = '-4'
-    if (via and via.version == 6) or \
-            (route != 'default' and ip_network(route).version == 6):
-        version = '-6'
+    
     if (route == 'default6'):
         route = 'default'
+        version = '-6'    
+        
+    if (via and via.version == 6) or \
+            (route != 'default' route != 'default6' and \
+             and ip_network(route).version == 6):
         version = '-6'
+        
     if (dev and via):
         cmd = 'ip {version} route add {route} via {via} dev {dev}'.format(
             version=version, route=route, via=via, dev=dev
