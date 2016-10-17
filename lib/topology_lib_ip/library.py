@@ -258,7 +258,7 @@ def remove_ip(enode, portlbl, addr, shell=None):
     assert not response
 
 
-def add_route(enode, route, via, shell=None, dev=None):
+def add_route(enode, route, via, version=None, shell=None, dev=None):
     """
     Add a new static route.
 
@@ -275,15 +275,11 @@ def add_route(enode, route, via, shell=None, dev=None):
     if(via):
         via = ip_address(via)
 
-    version = '-4'
+    if(!version)    
+        version = '-4'   
     
-    if (route == 'default6'):
-        route = 'default'
-        version = '-6'    
-        
     if (via and via.version == 6) or \
-            (route != 'default' route != 'default6' and \
-             and ip_network(route).version == 6):
+            (route != 'default' and ip_network(route).version == 6):
         version = '-6'
         
     if (dev and via):
