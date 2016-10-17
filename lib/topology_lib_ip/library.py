@@ -279,7 +279,7 @@ def add_route(enode, route, via, shell=None, dev=None):
     if (via and via.version == 6) or \
             (route != 'default' and ip_network(route).version == 6):
         version = '-6'
-    if (route == 'default6)
+    if (route == 'default6')
         route = 'default'
         version = '-6'
     if (dev and via):
