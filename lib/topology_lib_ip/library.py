@@ -275,7 +275,7 @@ def add_route(enode, route, via, version=None, shell=None, dev=None):
     if(via):
         via = ip_address(via)
 
-    if(!version):
+    if(not version):
         version = '-4'
     
     if (via and via.version == 6) or \
